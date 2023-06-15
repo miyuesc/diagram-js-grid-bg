@@ -15,11 +15,11 @@ import type Canvas from 'diagram-js/lib/core/Canvas'
  */
 
 const SmallGridSpacing = SPACING
-const GridLineSpacing = SmallGridSpacing * 10
+const GridSpacing = SmallGridSpacing * 10
 const GridLineStroke = 0.5
 const GridLineOpacity = 0.5
+const GridLineColor = '#ccc'
 
-const GRID_COLOR = '#ccc'
 const LAYER_NAME = 'djs-grid-line'
 
 const GRID_DIMENSIONS = {
@@ -27,18 +27,36 @@ const GRID_DIMENSIONS = {
   height: 100000
 }
 
+export type GridLineConf = {
+  smallGridSpacing?: number
+  gridSpacing?: number
+  gridLineStroke?: number
+  gridLineOpacity?: number
+  gridLineColor?: string
+}
+
 class GridLine {
+  static $inject: string[]
   private _visible: boolean
   private _canvas: Canvas
-  static $inject: string[]
   private _gfx?: SVGElement
   private _pattern?: SVGPatternElement
+  private _config: Required<GridLineConf>
 
   /**
+   * @param {GridLineConf} config
    * @param {Canvas} canvas
    * @param {EventBus} eventBus
    */
-  constructor(canvas, eventBus) {
+  constructor(config, canvas, eventBus) {
+    this._config = {
+      smallGridSpacing: SmallGridSpacing,
+      gridSpacing: GridSpacing,
+      gridLineStroke: GridLineStroke,
+      gridLineOpacity: GridLineOpacity,
+      gridLineColor: GridLineColor,
+      ...(config || {})
+    }
     this._canvas = canvas
     this._visible = false
 
@@ -74,18 +92,18 @@ class GridLine {
     const smallGridPatternId = 'djs-small-grid-pattern-' + randomNumber()
     svgAttr(smallGridPattern, {
       id: smallGridPatternId,
-      width: SmallGridSpacing,
-      height: SmallGridSpacing,
+      width: this._config.smallGridSpacing,
+      height: this._config.smallGridSpacing,
       patternUnits: 'userSpaceOnUse'
     })
 
     const smallGridPath = svgCreate('path')
     svgAttr(smallGridPath, {
-      d: `M ${SmallGridSpacing} 0 L 0 0 0 ${SmallGridSpacing}`,
+      d: `M ${this._config.smallGridSpacing} 0 L 0 0 0 ${this._config.smallGridSpacing}`,
       fill: 'none',
-      stroke: GRID_COLOR,
-      strokeWidth: GridLineStroke,
-      opacity: GridLineOpacity
+      stroke: this._config.gridLineColor,
+      strokeWidth: this._config.gridLineStroke,
+      opacity: this._config.gridLineOpacity
     })
     svgAppend(smallGridPattern, smallGridPath)
 
@@ -94,25 +112,25 @@ class GridLine {
     const gridPatternId = 'djs-grid-pattern-' + randomNumber()
     svgAttr(gridPattern, {
       id: gridPatternId,
-      width: GridLineSpacing,
-      height: GridLineSpacing,
+      width: this._config.gridSpacing,
+      height: this._config.gridSpacing,
       patternUnits: 'userSpaceOnUse'
     })
 
     const gridPath = svgCreate('path')
     svgAttr(gridPath, {
-      d: `M ${GridLineSpacing} 0 L 0 0 0 ${GridLineSpacing}`,
+      d: `M ${this._config.gridSpacing} 0 L 0 0 0 ${this._config.gridSpacing}`,
       fill: 'none',
-      stroke: GRID_COLOR,
-      strokeWidth: GridLineStroke * 2,
-      opacity: GridLineOpacity * 2
+      stroke: this._config.gridLineColor,
+      strokeWidth: this._config.gridLineStroke * 2,
+      opacity: this._config.gridLineOpacity * 2
     })
     svgAppend(gridPattern, gridPath)
 
     const gridRect = svgCreate('rect')
     svgAttr(gridRect, {
-      width: GridLineSpacing,
-      height: GridLineSpacing,
+      width: this._config.gridSpacing,
+      height: this._config.gridSpacing,
       fill: `url(#${smallGridPatternId})`
     })
     svgAppend(gridPattern, gridRect)
@@ -140,8 +158,8 @@ class GridLine {
     const mid = getMid(viewbox)
 
     svgAttr(this._gfx!, {
-      x: -(GRID_DIMENSIONS.width / 2) + quantize(mid.x, GridLineSpacing, 'round'),
-      y: -(GRID_DIMENSIONS.height / 2) + quantize(mid.y, GridLineSpacing, 'round')
+      x: -(GRID_DIMENSIONS.width / 2) + quantize(mid.x, this._config.gridSpacing, 'round'),
+      y: -(GRID_DIMENSIONS.height / 2) + quantize(mid.y, this._config.gridSpacing, 'round')
     })
   }
 
@@ -174,7 +192,7 @@ class GridLine {
   }
 }
 
-GridLine.$inject = ['canvas', 'eventBus']
+GridLine.$inject = ['config.gridLine', 'canvas', 'eventBus']
 
 // helpers ///////////////
 function randomNumber() {
