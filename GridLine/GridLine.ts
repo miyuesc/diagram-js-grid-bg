@@ -17,7 +17,7 @@ import type Canvas from 'diagram-js/lib/core/Canvas'
 const SmallGridSpacing = SPACING
 const GridSpacing = SmallGridSpacing * 10
 const GridLineStroke = 0.5
-const GridLineOpacity = 0.5
+const GridLineOpacity = 0.4
 const GridLineColor = '#ccc'
 
 const LAYER_NAME = 'djs-grid-line'
