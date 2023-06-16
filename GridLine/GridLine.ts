@@ -7,12 +7,8 @@ import {
 import { query as domQuery } from 'min-dom'
 import { SPACING, quantize } from 'diagram-js/lib/features/grid-snapping/GridUtil'
 import { getMid } from 'diagram-js/lib/layout/LayoutUtil'
-import type Canvas from 'diagram-js/lib/core/Canvas'
-
-/**
- * @typedef {import('diagram-js/lib/core/Canvas').default} Canvas
- * @typedef {import('diagram-js/lib/core/EventBus').default} EventBus
- */
+import Canvas, { CanvasViewbox } from 'diagram-js/lib/core/Canvas'
+import EventBus from "diagram-js/lib/core/EventBus";
 
 const SmallGridSpacing = SPACING
 const GridSpacing = SmallGridSpacing * 10
@@ -48,7 +44,7 @@ class GridLine {
    * @param {Canvas} canvas
    * @param {EventBus} eventBus
    */
-  constructor(config, canvas, eventBus) {
+  constructor(config: GridLineConf, canvas: Canvas, eventBus: EventBus) {
     this._config = {
       smallGridSpacing: SmallGridSpacing,
       gridSpacing: GridSpacing,
@@ -64,13 +60,13 @@ class GridLine {
       this._init()
     })
 
-    eventBus.on('gridSnapping.toggle', (event) => {
+    eventBus.on('gridSnapping.toggle', <T extends boolean>(event) => {
       const active = event.active
       this.toggle(active)
       this._centerGridAroundViewbox()
     })
 
-    eventBus.on('canvas.viewbox.changed', (context) => {
+    eventBus.on('canvas.viewbox.changed', <CanvasViewbox>(context) => {
       const viewbox = context.viewbox
 
       this._centerGridAroundViewbox(viewbox)
@@ -150,11 +146,12 @@ class GridLine {
     })
   }
 
-  _centerGridAroundViewbox(viewbox?) {
+  _centerGridAroundViewbox(viewbox?: CanvasViewbox) {
     if (!viewbox) {
       viewbox = this._canvas.viewbox()
     }
 
+    // @ts-ignore
     const mid = getMid(viewbox)
 
     svgAttr(this._gfx!, {
@@ -196,7 +193,7 @@ GridLine.$inject = ['config.gridLine', 'canvas', 'eventBus']
 
 // helpers ///////////////
 function randomNumber() {
-  return Math.trunc(Math.random() * 1000000)
+  return Math.round(Math.random() * 1000000)
 }
 
 export default GridLine
