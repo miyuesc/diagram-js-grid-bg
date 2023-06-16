@@ -5,19 +5,31 @@ A visual grid background for diagram-js, base on diagram-js-grid.
 
 ## How to use 如何使用
 
-1. Clone this repository.
-2. Copy the `GridLine` directory to your own project.
-3. `import` it.
+1. ~~Clone this repository.~~
+2. ~~Copy the `GridLine` directory to your own project.~~
+3. ~~`import` it.~~
 
 
-1. 克隆这个项目.
-2. 将 `GridLine` 这个目录复制到你自己的项目中.
-3. 使用 `import` 导入这个模块.
+1. ~~克隆这个项目.~~
+2. ~~将 `GridLine` 这个目录复制到你自己的项目中.~~
+3. ~~使用 `import` 导入这个模块.~~
+
+>  This project has been published as an NPM dependency package.
+>
+> 该项目已经发布为一个NPM依赖包
+
+1. Add the diagram-js-grid-bg to your project:
+
+```sh
+npm install diagram-js-grid-bg
+```
+
+2. Add it to the additionalModules Array
 
 
 ```js
 import Modeler from 'bpmn-js/lib/Modeler'
-import GridLineModule from '@/xxx/GridLine'
+import GridLineModule from 'diagram-js-grid-bg'
 
 
 const modeler = new Modeler({
