@@ -1,6 +1,6 @@
 {
   "name": "diagram-js-grid-bg",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A visual grid background for diagram-js, base on diagram-js-grid.",
   "main": "dist/diagram-js-grid-bg.cjs",
   "module": "dist/diagram-js-grid-bg.es.js",
@@ -8,12 +8,17 @@
   "types": "dist/GridLine/index",
   "files": [
     "dist",
+    "screenshot",
     "GridLine"
   ],
   "keywords": [
     "diagram-js",
     "grid",
-    "bpmn-js"
+    "bpmn-js",
+    "diagram-js-grid-bg",
+    "diagram-js-grid-background",
+    "bpmn-js-grid-bg",
+    "bpmn-js-grid-background"
   ],
   "scripts": {
     "build": "rollup --config"
