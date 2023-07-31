@@ -95,7 +95,7 @@ class GridLine {
 
     const smallGridPath = svgCreate('path')
     svgAttr(smallGridPath, {
-      d: `M ${this._config.smallGridSpacing} 0 L 0 0 0 ${this._config.smallGridSpacing}`,
+      d: `M ${this._config.smallGridSpacing},0 L 0,0 0,${this._config.smallGridSpacing} ${this._config.smallGridSpacing},${this._config.smallGridSpacing} Z`,
       fill: 'none',
       stroke: this._config.gridLineColor,
       strokeWidth: this._config.gridLineStroke,
@@ -115,7 +115,7 @@ class GridLine {
 
     const gridPath = svgCreate('path')
     svgAttr(gridPath, {
-      d: `M ${this._config.gridSpacing} 0 L 0 0 0 ${this._config.gridSpacing}`,
+      d: `M ${this._config.gridSpacing},0 L 0,0 0,${this._config.gridSpacing} ${this._config.gridSpacing},${this._config.gridSpacing} Z`,
       fill: 'none',
       stroke: this._config.gridLineColor,
       strokeWidth: this._config.gridLineStroke * 2,
