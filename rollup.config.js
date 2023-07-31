@@ -31,7 +31,12 @@ export default defineConfig({
     },
   ],
   // 解释同globals配置，这个配置的意思是我简单处理把外部依赖不打包进bundle中，而是前置引入或者作为依赖安装使用
-  external: [],
+  external: [
+    'diagram-js/lib/features/grid-snapping/GridUtil',
+    'diagram-js/lib/layout/LayoutUtil',
+    'min-dom',
+    'tiny-svg'
+  ],
   plugins: [
     babel(),
     typescript({
