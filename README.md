@@ -58,7 +58,7 @@ This plugin module supports five custom configurations.
 
 #### 1. default 默认效果
 
-![default](./screenshot/CPT2306161011-1338x1047.gif)
+![default](./screenshot/demo1.gif)
 
 #### 2. custom config 自定义配置
 
@@ -83,4 +83,4 @@ const modeler = new Modeler({
 })
 ```
 
-![custom](./screenshot/CPT2306161015-1328x988.gif)
+![custom](./screenshot/demo2.gif)

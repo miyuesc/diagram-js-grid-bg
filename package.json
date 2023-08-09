@@ -1,6 +1,6 @@
 {
   "name": "diagram-js-grid-bg",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A visual grid background for diagram-js, base on diagram-js-grid.",
   "main": "dist/diagram-js-grid-bg.cjs",
   "module": "dist/diagram-js-grid-bg.es.js",
