@@ -5,12 +5,12 @@ import {
   create as svgCreate
 } from 'tiny-svg'
 import { query as domQuery } from 'min-dom'
-import { SPACING, quantize } from 'diagram-js/lib/features/grid-snapping/GridUtil'
+import { quantize } from 'diagram-js/lib/features/grid-snapping/GridUtil'
 import { getMid } from 'diagram-js/lib/layout/LayoutUtil'
 import Canvas, { CanvasViewbox } from 'diagram-js/lib/core/Canvas'
 import EventBus from "diagram-js/lib/core/EventBus";
 
-const SmallGridSpacing = SPACING
+const SmallGridSpacing = 10
 const GridSpacing = SmallGridSpacing * 10
 const GridLineStroke = 0.5
 const GridLineOpacity = 0.4
@@ -39,11 +39,6 @@ class GridLine {
   private _pattern?: SVGPatternElement
   private _config: Required<GridLineConf>
 
-  /**
-   * @param {GridLineConf} config
-   * @param {Canvas} canvas
-   * @param {EventBus} eventBus
-   */
   constructor(config: GridLineConf, canvas: Canvas, eventBus: EventBus) {
     this._config = {
       smallGridSpacing: SmallGridSpacing,
@@ -58,6 +53,7 @@ class GridLine {
 
     eventBus.on('diagram.init', () => {
       this._init()
+      this.toggle(true)
     })
 
     eventBus.on('gridSnapping.toggle', <T extends boolean>(event) => {
@@ -164,7 +160,7 @@ class GridLine {
     return this._visible
   }
 
-  toggle(visible) {
+  toggle(visible?: boolean) {
     if (typeof visible === 'undefined') {
       visible = !this._visible
     }
