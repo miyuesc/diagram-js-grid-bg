@@ -42,7 +42,7 @@
     "@rollup/plugin-commonjs": "^25.0.1",
     "@rollup/plugin-node-resolve": "^15.1.0",
     "diagram-js": "^12.2.0",
-    "rollup": "^2.79.1",
+    "rollup": "^3.29.5",
     "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-typescript2": "^0.34.1",
     "typescript": "^5.1.3"
